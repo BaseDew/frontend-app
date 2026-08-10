@@ -17,7 +17,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "stop": "pkill --signal SIGINT login-signup"
+    "stop3002": "kill -INT $(lsof -ti tcp:3002) 2>/dev/null || true",
+    "stop3000": "kill -INT $(lsof -ti tcp:3000) 2>/dev/null || true"
   },
   "eslintConfig": {
     "extends": [
