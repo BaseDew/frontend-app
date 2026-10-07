@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 
 const loginSchema = z.object({
   username: z.string().min(3, 'Username must have at least 3 characters'),
-//   email: z.email('Incorrect email format'),
+  //   email: z.email('Incorrect email format'),
   password: z.string().min(6, 'Password must have at least 6 characters'),
 });
 
@@ -16,14 +16,14 @@ type LoginFormInputs = z.infer<typeof loginSchema>;
 export const LoginPage: React.FC = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
-  
+
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<LoginFormInputs>({
     resolver: zodResolver(loginSchema),
   });
 
   const onSubmit = async (data: LoginFormInputs) => {
     try {
-        //TODO parametrize URL
+      //TODO parametrize URL
       const response = await fetch('http://localhost:9090/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -33,20 +33,13 @@ export const LoginPage: React.FC = () => {
       if (!response.ok) throw new Error('Incorrect login data');
 
       const result = await response.json();
-      
+
       login(result.token);
       navigate('/');
     } catch (error) {
       alert(error instanceof Error ? error.message : 'An unknown error ocurred');
     }
   };
-
-  const authTest = () => {
-        let url = "http://localhost:9090/api/v1/account/2"
-      const response = fetch(url, {
-        method: 'GET',
-      }).then(res => res.json().then(userData => console.log(userData)));
-  }
 
   return (
     <div style={{ maxWidth: '400px', margin: '50px auto' }}>
@@ -67,8 +60,6 @@ export const LoginPage: React.FC = () => {
         <button type="submit" disabled={isSubmitting}>
           {isSubmitting ? 'Logging in...' : 'Log in'}
         </button>
-
-        <button className="logout-btn" onClick={authTest}>Print user data to console</button>
       </form>
     </div>
   );

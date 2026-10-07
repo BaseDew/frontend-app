@@ -3,6 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import './Dashboard.css';
 import { useFetchWithAuth } from '../hooks/useFetchWithAuth';
 import AccountData from './AccountData';
+import CreateAccountForm from './CreateAccountForm';
 
 const Dashboard: React.FC = () => {
 
@@ -30,9 +31,10 @@ const Dashboard: React.FC = () => {
                 <button className="logout-btn" onClick={getUserData}>Fetch user data</button>
                 <ul>
                     {userAccountData.map((userAccountData, index) => (
-                        <AccountData data={userAccountData}/>
+                        <AccountData data={userAccountData} />
                     ))}
                 </ul>
+                <CreateAccountForm />
                 <button className="logout-btn" onClick={logout}>Logout</button>
             </div>
         </div>
